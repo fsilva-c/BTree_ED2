@@ -133,6 +133,7 @@ class BTree(object):
       this_level = next_level
     
   def print_seq(self, x):
+	""" Exibe todas as chaves da árvore """
     for i in x.keys:
       print(i)
 
