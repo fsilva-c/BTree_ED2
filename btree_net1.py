@@ -107,9 +107,7 @@ class BTree(object):
       node = self.root
 
     if node.keys:
-      for i in range(len(node.keys)):
-        #if value < node.keys[i]:
-        print(node.keys[i])
+      return True
 
     elif node.leaf:
       # If we are in a leaf, there is no more to check.
@@ -133,6 +131,42 @@ class BTree(object):
         output += str(node.keys) + " "
       print(output)
       this_level = next_level
+    
+  def print_seq(self, x):
+    for i in x.keys:
+      print(i)
+
+    if x.children:
+      for i in x.children:
+        self.print_seq(i)
+      
+  def seach_by_interval(self, x, value0, value1):
+    """ Busca por intervalos: [valor inicial, valor final] """
+    if value0 >= value1:
+      return False
+
+    for i in range(len(x.keys)):
+      if x.keys[i] >= value0 and x.keys[i] <= value1:
+        print(x.keys[i])
+
+    if x.children:
+      for i in x.children:
+        self.seach_by_interval(i, value0, value1)
+  
+  def seach_by_value(self, x, value, type_seach):
+    """ Busca por maior ou menor que uma determinada chave """
+    if type_seach == "maior":
+      for i in range(len(x.keys)):
+        if x.keys[i] > value:
+          print(x.keys[i])
+    elif type_seach == "menor":
+      for i in range(len(x.keys)):
+        if x.keys[i] < value:
+          print(x.keys[i])
+
+    if x.children:
+      for i in x.children:
+        self.seach_by_value(i, value, type_seach)
 
 def main():
     bt = BTree(3)
@@ -154,8 +188,11 @@ def main():
     bt.insert(14)
     bt.insert(21)
     bt.insert(22)
-    xxx = bt.search(20)
-    print(xxx)
+
+    #bt.print_seq(bt.root)
+    bt.seach_by_interval(bt.root, 8, 14)
+    print("\n")
+    bt.seach_by_value(bt.root, 14, "maior")
 
 if __name__ == '__main__':
 	main()   
