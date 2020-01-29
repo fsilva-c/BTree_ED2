@@ -6,7 +6,7 @@ def system(value):
 
 def key_validator(value, INDEX):
     """
-        função percorre o arquivo sequencial cardapy.txt e verifica pelo indice se há algum dado
+        função percorre o arquivo sequencial cardapy.csv e verifica pelo indice se há algum dado
         igual ao valor passado na insercao de um novo item.
     """
 
