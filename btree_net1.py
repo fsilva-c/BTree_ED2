@@ -119,6 +119,7 @@ class BTree(object):
         i += 1
       return self.search(value, node.children[i])
 
+  
   def print_order(self):
     """Print an level-order representation."""
     this_level = [self.root]
@@ -132,8 +133,9 @@ class BTree(object):
       print(output)
       this_level = next_level
     
+  # FUNCOES PARA O TRABALHO DE ED2
   def print_seq(self, x):
-	""" Exibe todas as chaves da árvore """
+    """ Exibe todas as chaves da árvore """
     for i in x.keys:
       print(i)
 
@@ -169,35 +171,47 @@ class BTree(object):
       for i in x.children:
         self.seach_by_value(i, value, type_seach)
 
+  def search_bt(self, value, node=None):
+    """ Retorna true se a chave passada pra função está contida na árvore. Ps: função adaptada para 
+    verificar apenas a parte após a vírgula (a chave em si) do registro. """
+    if node is None:
+      node = self.root
+
+    if node.keys:
+      for i in node.keys:
+        var = i
+        index_key = 0
+
+        while var[index_key] != ",":
+          index_key += 1
+        
+        temp_key = var[index_key  + 2:]
+
+      if value == temp_key:
+        return True  
+
+    elif node.leaf:
+      # If we are in a leaf, there is no more to check.
+      return False
+
+    else:
+      i = 0
+      while i < node.size:
+        i += 1
+      return self.search(value, node.children[i])
+
 def main():
     bt = BTree(3)
     bt2 = BTree(3)
     l = range(20,0, -1)
-    bt2.insert("x")
-    bt2.insert("a")
-    bt2.insert("b")
-    bt2.insert("d")
-    bt2.insert("j")
-    bt2.insert("f")
-    bt.insert(8)
-    bt.insert(20)
-    bt.insert(9)
-    bt.insert(11)
-    bt.insert(7)
-    bt.insert(6)
-    bt.insert(13)
-    bt.insert(14)
-    bt.insert(21)
-    bt.insert(22)
+    
+    bt.insert("1, 79.99")
 
     #bt.print_seq(bt.root)
-    bt.seach_by_interval(bt.root, 8, 14)
-    print("\n")
-    bt.seach_by_value(bt.root, 14, "maior")
+    #bt.seach_by_interval(bt.root, 8, 14)
+    #print("\n")
+    #bt.seach_by_value(bt.root, 14, "maior")
+    print(bt.search_bt("79.99"))
 
 if __name__ == '__main__':
 	main()   
-
-
-    
-     
