@@ -2,6 +2,10 @@ from __future__ import (nested_scopes, generators, division, absolute_import, wi
                         print_function, unicode_literals)
 
 
+#variavel a ser usada para recuperar o indice do arquivo sequencial que está contido na btree
+index_arqSeq = -9
+
+
 class BTree(object):
   """A BTree implementation with search and insert functions. Capable of any order t."""
 
@@ -171,47 +175,42 @@ class BTree(object):
       for i in x.children:
         self.seach_by_value(i, value, type_seach)
 
-  def search_bt(self, value, node=None):
+  def search_bt(self, x, value):
+    global index_arqSeq
     """ Retorna true se a chave passada pra função está contida na árvore. Ps: função adaptada para 
     verificar apenas a parte após a vírgula (a chave em si) do registro. """
-    if node is None:
-      node = self.root
+    for i in x.keys:
+        if value in i:
+          #variavel global recebe o indice do arquivo sequencial
+	  index_arqSeq = i[0]
 
-    if node.keys:
-      for i in node.keys:
-        var = i
-        index_key = 0
+    if x.children:
+      for i in x.children:
+        self.search_bt(i, value)
 
-        while var[index_key] != ",":
-          index_key += 1
-        
-        temp_key = var[index_key  + 2:]
+def main():  
 
-      if value == temp_key:
-        return True  
-
-    elif node.leaf:
-      # If we are in a leaf, there is no more to check.
-      return False
-
-    else:
-      i = 0
-      while i < node.size:
-        i += 1
-      return self.search(value, node.children[i])
-
-def main():
-    bt = BTree(3)
-    bt2 = BTree(3)
+    bt = BTree(2)
     l = range(20,0, -1)
-    
-    bt.insert("1, 79.99")
 
+    bt.insert([19, 33.99])
+    bt.insert([18, 14.99])
+    bt.insert([1, 149.99])
+    bt.insert([15, 16.99])
+    bt.insert([1544, 4616.99])
+    bt.insert([145, 19086.99])
+    bt.insert([195, 17676.99])
+    bt.insert([5, 1634.99])
+    bt.insert([159, 1786.99])
+
+
+    
+    bt.search_bt(bt.root, 1634.99)
+    print(index_arqSeq)
     #bt.print_seq(bt.root)
     #bt.seach_by_interval(bt.root, 8, 14)
     #print("\n")
     #bt.seach_by_value(bt.root, 14, "maior")
-    print(bt.search_bt("79.99"))
 
 if __name__ == '__main__':
 	main()   
