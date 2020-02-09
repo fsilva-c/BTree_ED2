@@ -3,9 +3,6 @@ from btree_net1 import *
 
 ORDER = 2
 
-
-
-    
 def btree_creator(type_key):
     t = BTree(ORDER)
 
@@ -24,8 +21,3 @@ def btree_creator(type_key):
     archive.close()
 
     return t
-
-t_name = btree_creator("name")
-t_price = btree_creator("price")
-
-t_name.print_seq(t_name.root)
