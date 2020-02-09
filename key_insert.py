@@ -1,4 +1,4 @@
-from menu_prog import struct_item
+from menu_prog import *
 
 import csv
 import os
@@ -8,6 +8,45 @@ header = "name,price,igredients,kcal,type_item,type_drink,flavor_drink,type_prot
 def system(value):
     if value == "pause":
         var = input("\nPressione uma tecla para continuar... ")
+
+def itemRegister():
+    item = struct_item()
+    menu_prog = struct_menu()
+    
+    item["name"] = input("Informe o nome do produto: ")
+    #caixa alta
+    item["name"] = item["name"].upper()
+    if key_validator(item["name"], "name") == False:
+        return
+
+    item["price"] = input("Informe o preco do produto: ")
+    if key_validator(item["price"], "price") == False:
+        return
+
+    item["igredients"] = input("Informe os igredientes: ")
+    item["igredients"] = item["igredients"].upper()
+    
+    item["kcal"]  = input("Informe a quantidade de kcal contida no item: ")
+    
+    while(True):
+        item["type_item"] = int(input("1-> Bebida\n2-> Comida\nInforme o tipo do item: "))
+        item["type_item"] = menu_prog["type_item"][item["type_item"]]
+
+        if item["type_item"] == "bebida":
+            item["type_drink"] = int(input("1-> Suco\n2-> Refrigerante\n3-> Agua\nInforme o tipo da bebida: "))
+            item["type_drink"] = menu_prog["type_drink"][item["type_drink"]]
+
+            item["flavor_drink"] = input("Informe o sabor da bebida: ")
+            break
+
+        elif item["type_item"] == "comida":
+            item["type_protein"] = int(input("1-> Carne\n2-> Peixe\n3-> Vegano\nInforme o tipo da proteína: "))
+            item["type_protein"] = menu_prog["type_protein"][item["type_protein"]]
+
+            item["protein_portion"] = input("Informe a quantidade de porções que o prato rende: ")
+            break
+
+    input_archive(item)
 
 def key_validator(value, INDEX):
     """
@@ -41,21 +80,32 @@ def input_archive(struct):
     item_write.writerow(struct.values())
     archive.close()
 
-def return_dataIndex(INDEX):
+def return_lineIndex(KEY):
+    """ Método recebe uma chave e retorna um dicionário contendo os dados daquela linha do arquivo 
+    sequencial."""
+    #tem que validar a chave aqui
+
+
     #obtendo o conteudo da posição INDEX
-    archive = open("cardapy.csv").readlines()[INDEX]
+    archive = open("cardapy.csv").readlines()[KEY]
 
     #escrevendo em um arquivo temporário o conteúdo de archive
     with open("tempCardapy.csv", "w") as archive_temp:
         archive_temp.write(header)
         archive_temp.write(archive)
 
-    #lendo os dados do item da posição INDEX
+    #lendo os dados do item da posição INDEX do arquivo temporário
     cardapy = open("tempCardapy.csv")
     item_cardapy = csv.DictReader(cardapy)
     os.remove("tempCardapy.csv")
+
+    return item_cardapy
+
+def return_dataIndex(KEY):
+    """ Método recebe uma chave e retorna os dados relacionados ao item. """
+    line_cardapy = return_lineIndex(KEY)
     
-    for i in item_cardapy:
+    for i in line_cardapy:
         print("Nome: " + i["name"])
         print("Preço: " + i["price"])
         print("Ingredientes: " + i["igredients"])
@@ -67,7 +117,29 @@ def return_dataIndex(INDEX):
             print("Tipo de proteína: " + i["type_protein"])
             print("Porção por prato: " + i["protein_portion"])
 
-    cardapy.close()
+def remove_item(KEY):
+    #tem que validar a chave aqui
+    
 
+    item_remove = open("cardapy.csv").readlines()[KEY]
 
-return_dataIndex(7)
+    archive_temp = open("cardapy_temp.csv", "w")
+
+    with open('cardapy.csv', 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            output = str(line)
+            if line == item_remove:
+                line = ""
+            archive_temp.write(line)    
+            
+    archive_temp.close()
+    os.remove("cardapy.csv")
+    os.rename("cardapy_temp.csv", "cardapy.csv")        
+
+def alter_register(KEY):
+    remove_item(KEY)
+
+    itemRegister()
+
+    
