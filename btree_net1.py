@@ -1,11 +1,6 @@
 from __future__ import (nested_scopes, generators, division, absolute_import, with_statement,
                         print_function, unicode_literals)
 
-
-#variavel a ser usada para recuperar o indice do arquivo sequencial que está contido na btree
-index_arqSeq = -9
-
-
 class BTree(object):
   """A BTree implementation with search and insert functions. Capable of any order t."""
 
@@ -176,12 +171,10 @@ class BTree(object):
         self.seach_by_value(i, value, type_seach)
 
   def search_bt(self, x, value):
-    global index_arqSeq
     """ Retorna true se a chave passada pra função está contida na árvore. Ps: função adaptada para 
     verificar apenas a parte após a vírgula (a chave em si) do registro. """
     for i in x.keys:
         if value in i:
-          #variavel global recebe o indice do arquivo sequencial
 	        return i[0]
 
     if x.children:
@@ -207,7 +200,7 @@ def main():
     bt.insert([99, 77.99])
     bt.insert([75, "MIOJO"])
 
-    print(bt.search_bt(bt.root, 1786.99))
+    print(bt.search_bt(bt.root, 4616.99))
     #print(index_arqSeq)
     #bt.print_order()
     #bt.seq_press(bt.root)
