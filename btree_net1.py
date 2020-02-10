@@ -182,11 +182,13 @@ class BTree(object):
     for i in x.keys:
         if value in i:
           #variavel global recebe o indice do arquivo sequencial
-	  index_arqSeq = i[0]
+	        return i[0]
 
     if x.children:
       for i in x.children:
-        self.search_bt(i, value)
+        index = self.search_bt(i, value)
+        if index != None:
+          return index
 
 def main():  
 
@@ -202,11 +204,13 @@ def main():
     bt.insert([195, 17676.99])
     bt.insert([5, 1634.99])
     bt.insert([159, 1786.99])
+    bt.insert([99, 77.99])
+    bt.insert([75, "MIOJO"])
 
-
-    
-    bt.search_bt(bt.root, 1634.99)
-    print(index_arqSeq)
+    print(bt.search_bt(bt.root, 1786.99))
+    #print(index_arqSeq)
+    #bt.print_order()
+    #bt.seq_press(bt.root)
     #bt.print_seq(bt.root)
     #bt.seach_by_interval(bt.root, 8, 14)
     #print("\n")
