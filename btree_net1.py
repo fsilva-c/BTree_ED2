@@ -1,6 +1,8 @@
 from __future__ import (nested_scopes, generators, division, absolute_import, with_statement,
                         print_function, unicode_literals)
 
+from copy import deepcopy
+
 class BTree(object):
   """A BTree implementation with search and insert functions. Capable of any order t."""
 
@@ -128,8 +130,8 @@ class BTree(object):
       for node in this_level:
         if node.children:
           next_level.extend(node.children)
-        output += str(node.keys) + " "
-      print(output)
+        output += str(node.keys) + " <--> "
+      print(output.center(200, ' '))
       this_level = next_level
     
   # FUNCOES PARA O TRABALHO DE ED2
@@ -148,7 +150,7 @@ class BTree(object):
       return False
 
     for i in range(len(x.keys)):
-      if x.keys[i] >= value0 and x.keys[i] <= value1:
+      if x.keys[i][0] >= value0 and x.keys[i][0] <= value1:
         print(x.keys[i])
 
     if x.children:
@@ -159,11 +161,11 @@ class BTree(object):
     """ Busca por maior ou menor que uma determinada chave """
     if type_seach == "maior":
       for i in range(len(x.keys)):
-        if x.keys[i] > value:
+        if x.keys[i][0] > value:
           print(x.keys[i])
     elif type_seach == "menor":
       for i in range(len(x.keys)):
-        if x.keys[i] < value:
+        if x.keys[i][0] < value:
           print(x.keys[i])
 
     if x.children:
@@ -175,39 +177,62 @@ class BTree(object):
     verificar apenas a parte após a vírgula (a chave em si) do registro. """
     for i in x.keys:
         if value in i:
-	        return i[0]
+	        return i[1]
 
     if x.children:
       for i in x.children:
         index = self.search_bt(i, value)
         if index != None:
-          return index
+            return index
+  
+  def seq_press(self, root_origin):
+    root = deepcopy(root_origin)
+    if root.children:
+      for child in root.children:
+        if child.keys[0][0] > root.keys[0][0]:
+          print(root.keys[0])
+          del root.keys[0]
+        #print("filho",child.keys)
+        self.seq_press(child)
+    #Impressão de fato:
+    for no in root.keys:
+      print(no)
+
 
 def main():  
 
     bt = BTree(2)
     l = range(20,0, -1)
 
-    bt.insert([19, 33.99])
-    bt.insert([18, 14.99])
-    bt.insert([1, 149.99])
-    bt.insert([15, 16.99])
-    bt.insert([1544, 4616.99])
-    bt.insert([145, 19086.99])
-    bt.insert([195, 17676.99])
-    bt.insert([5, 1634.99])
-    bt.insert([159, 1786.99])
-    bt.insert([99, 77.99])
-    bt.insert([75, "MIOJO"])
-
-    print(bt.search_bt(bt.root, 4616.99))
+    bt.insert(["AAAAA", 19])
+    bt.insert(["AAAAB", 18])
+    bt.insert(["AAABB", 1])
+    bt.insert(["AABBB", 15])
+    bt.insert(["ABBBB", 1544])
+    bt.insert(["BBBBB", 145])
+    bt.insert(["BBBBC", 195])
+    bt.insert(["BBBCC", 5])
+    bt.insert(["BBCCC", 159])
+    bt.insert(["BCCCC", 99])
+    bt.insert(["CCCCC", 75])
+    bt.insert(["CCCCD", 7])
+    bt.insert(["CCCDD", 10])
+    bt.insert(["CCDDD", 11])
+    bt.insert(["CDDDD", 200])
+    bt.insert(["DDDDD", 21])
+    bt.insert(["DDDDE", 37])
+    bt.insert(["DDDEE", 12])
+    bt.insert(["DEEEE", 147])
+    
+    #print(bt.search_bt(bt.root, "CCDDD"))
     #print(index_arqSeq)
     #bt.print_order()
+    #print("\n\n")
     #bt.seq_press(bt.root)
     #bt.print_seq(bt.root)
-    #bt.seach_by_interval(bt.root, 8, 14)
+    #bt.seach_by_interval(bt.root, "BBBCC", "DDDDE")
     #print("\n")
-    #bt.seach_by_value(bt.root, 14, "maior")
+    #bt.seach_by_value(bt.root, "CDDDD", "maior")
 
 if __name__ == '__main__':
 	main()   
