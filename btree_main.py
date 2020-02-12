@@ -12,8 +12,8 @@ def btree_creator(type_key):
     iArchive = 1
     for lines in items:
         output = []
-        output.append(iArchive)
         output.append(lines[type_key])
+        output.append(iArchive)
         
         t.insert(output)
         iArchive += 1
