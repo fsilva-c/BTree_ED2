@@ -8,6 +8,10 @@ header = "name,price,igredients,kcal,type_item,type_drink,flavor_drink,type_prot
 def system(value):
     if value == "pause":
         var = input("\nPressione uma tecla para continuar... ")
+    elif value == "clear":
+        print("\033c")
+        #print(chr(27) + "[2j]")
+        #print("\x1bc")
 
 def itemRegister():
     item = struct_item()
@@ -73,21 +77,20 @@ def key_validator(value, INDEX):
 
 def input_archive(struct):
     """
-    função recebe um dicionário e escreve no arquivo cardapy.csv os valores que correspondem a cada chave.
+    função recebe um dicionário (novo item do cardapio) e escreve no arquivo cardapy.csv
+    os valores que correspondem a cada chave.
     """
     archive = open("cardapy.csv", "a")
     item_write = csv.writer(archive, delimiter = ',')
     item_write.writerow(struct.values())
     archive.close()
 
-def return_lineIndex(KEY):
+def return_lineIndex(index):
     """ Método recebe uma chave e retorna um dicionário contendo os dados daquela linha do arquivo 
     sequencial."""
-    #tem que validar a chave aqui
-
 
     #obtendo o conteudo da posição INDEX
-    archive = open("cardapy.csv").readlines()[KEY]
+    archive = open("cardapy.csv").readlines()[index]
 
     #escrevendo em um arquivo temporário o conteúdo de archive
     with open("tempCardapy.csv", "w") as archive_temp:
@@ -101,9 +104,13 @@ def return_lineIndex(KEY):
 
     return item_cardapy
 
-def return_dataIndex(KEY):
+def return_dataIndex(index):
     """ Método recebe uma chave e retorna os dados relacionados ao item. """
-    line_cardapy = return_lineIndex(KEY)
+    if index is None:
+        print("O elemento não está cadastrado!")
+        return False
+
+    line_cardapy = return_lineIndex(index)
     
     for i in line_cardapy:
         print("Nome: " + i["name"])
@@ -117,11 +124,12 @@ def return_dataIndex(KEY):
             print("Tipo de proteína: " + i["type_protein"])
             print("Porção por prato: " + i["protein_portion"])
 
-def remove_item(KEY):
-    #tem que validar a chave aqui
-    
+def remove_item(index):
+    if index is None:
+        print("O elemento não está cadastrado!")
+        return False
 
-    item_remove = open("cardapy.csv").readlines()[KEY]
+    item_remove = open("cardapy.csv").readlines()[index]
 
     archive_temp = open("cardapy_temp.csv", "w")
 
@@ -131,15 +139,13 @@ def remove_item(KEY):
             output = str(line)
             if line == item_remove:
                 line = ""
-            archive_temp.write(line)    
+            archive_temp.write(line)
             
     archive_temp.close()
     os.remove("cardapy.csv")
     os.rename("cardapy_temp.csv", "cardapy.csv")        
 
-def alter_register(KEY):
-    remove_item(KEY)
+def alter_register(index):
+    remove_item(index)
 
     itemRegister()
-
-    
