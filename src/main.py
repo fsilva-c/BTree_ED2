@@ -18,6 +18,10 @@ while option != 0:
     if option is 1:
         system("clear")
         itemRegister()
+
+        #recriando as árvores
+        tree_keyName = btree_creator("name")
+        tree_keyPrice = btree_creator("price")
         tree_carne, tree_peixe, tree_vegano = btree_typeProtein()
 
     #remoção do item
@@ -103,13 +107,16 @@ while option != 0:
                 item_name = input("Informe o nome da chave: ")
                 item_name = item_name.upper()
                 index = tree_keyName.search_bt(tree_keyName.root, item_name)
+
+                #exibindo as informações
+                system("clear")
                 return_dataIndex(index)
 
                 system("pause")
                 
             elif option_btKey is 2:
                 tree_keyName.seq_press(tree_keyName.root)
-
+                
                 system("pause")
 
         #chave tipo de proteína
@@ -123,7 +130,8 @@ while option != 0:
                 system("clear")
                 item_name = input("Informe o nome da chave: ")
                 item_name = item_name.upper()
-
+                
+                system("clear")
                 if option_btProtein is 1:
                     index = tree_carne.search_bt(tree_carne.root, item_name)
                     return_dataIndex(index)
