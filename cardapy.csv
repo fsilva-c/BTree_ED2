@@ -1,0 +1,11 @@
+name,price,igredients,kcal,type_item,type_drink,flavor_drink,type_protein,protein_portion
+FRANGO ASSADO,25.99,"FRANGO, MOLHO DE TOMATE",600,2,NaN,NaN,carne,5
+LOMBO,79.99,LOMBO DE PORCO,100,2,NaN,NaN,carne,15
+BISTECA SUINA,7.99,BISTECA DE PORCO,250,2,NaN,NaN,carne,5
+SARDINHA,8.99,SARDINHA PESCADA,56,2,NaN,NaN,peixe,5
+GUARICEMA,15.99,PEIXE,99,2,NaN,NaN,peixe,4
+DORITOS,5.99,FARINHA DE TRIGO E ESSENCIA,150,comida,NaN,NaN,carne,1
+CHURRASCO,16.99,"CARNE, TOSCANA E FRANGO ASSADO",250,comida,NaN,NaN,carne,4
+FRANGO A MILANESA,22.99,"FRANGO, MOLHO",350,comida,NaN,NaN,carne,3
+COCA COLA,3.50,"COCA, ACUCAR",200,bebida,refrigerante,coca,NaN,NaN
+MIOJO,1.79,"OVO, FARINHA DE TRIGO",220,comida,NaN,NaN,carne,1
