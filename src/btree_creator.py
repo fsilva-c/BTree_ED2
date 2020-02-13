@@ -42,8 +42,8 @@ def btree_typeProtein():
             output = []
             
             output.append(lines["name"])
-            output.append(lines["type_protein"])
             output.append(iArchive)
+            output.append(lines["type_protein"])
             if lines["type_protein"] == "carne":
                 tree_carne.insert(output)
 
