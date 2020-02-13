@@ -12,7 +12,12 @@ def btree_creator(type_key):
     iArchive = 1
     for lines in items:
         output = []
-        output.append(lines[type_key])
+
+        #bug do python na comparação entre string de número ex: "16.99".. fazendo casting para inteiro
+        if type_key == "price":
+            output.append(float(lines[type_key]))
+        else:
+            output.append(lines[type_key])
         output.append(iArchive)
         
         t.insert(output)
