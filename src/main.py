@@ -18,6 +18,7 @@ while option != 0:
     if option is 1:
         system("clear")
         itemRegister()
+        tree_carne, tree_peixe, tree_vegano = btree_typeProtein()
 
     #remoção do item
     elif option is 2:
