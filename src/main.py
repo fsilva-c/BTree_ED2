@@ -57,7 +57,7 @@ while option != 0:
             system("clear")
             key = input("Informe a chave que será alterada: ")
             key = key.upper()
-            index = tree_keyName.search_bt(tree_keyPrice.root, key)
+            index = tree_keyName.search_bt(tree_keyName.root, key)
             alter_register(index)
 
         system("pause")
