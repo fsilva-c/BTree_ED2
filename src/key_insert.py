@@ -147,9 +147,53 @@ def remove_item(index):
     os.rename("cardapy_temp.csv", "cardapy.csv")        
 
 def alter_register(index):
-    remove_item(index)
+    #validação do índice
+    if index is None:
+        print("O ELEMENTO NÃO ESTÁ CADASTRADO!")
+        return False
+    
+    #print do item
+    return_dataIndex(index)
+    print("\n==========================================")
 
-    itemRegister()
+    #recebendo o item do arquivo
+    item = return_lineIndex(index)
+    itemType_enum = struct_item_enum()
+    itemType_enum_TypeDrinkOrProtein = struct_menu()
+    
+    for row in item:
+        if row["type_item"] == "bebida":
+            type_column = int(input("1-> NOME\n2-> PREÇO\n3-> IGREDIENTES\n4-> KCAL\n5-> TIPO DA BEBIDA\n6-> SABOR DA BEBIDA\n\nInforme o campo do produto que deseja alterar: "))
+            type_column = itemType_enum["typeItem_drink"][type_column]
+
+            system("clear")
+            if type_column == "type_drink":
+                new_value = int(input("1-> SUCO\n2-> REFRIGERANTE\n3-> ÁGUA\n\nInforme o tipo da bebida: "))
+                new_value = itemType_enum_TypeDrinkOrProtein["type_drink"][new_value]
+            
+        else:
+            type_column = int(input("1-> NOME\n2-> PREÇO\n3-> IGREDIENTES\n4-> KCAL\n5-> TIPO DA PROTEÍNA\n6-> PORÇÕES\n\nInforme o campo do produto que deseja alterar: "))
+            type_column = itemType_enum["typeItem_protein"][type_column]
+
+            system("clear")
+            if type_column == "type_protein":
+                new_value = int(input("1-> CARNE\n2-> PEIXE\n3-> VEGANO\n\nInforme o tipo da proteína: "))
+                new_value = itemType_enum_TypeDrinkOrProtein["type_protein"][new_value]
+
+        system("clear")
+        if type_column == "name" or type_column == "price" or type_column == "igredients" or type_column == "kcal" or type_column == "flavor_drink":
+            new_value = input("Informe o novo valor para o campo: ")
+            if type_column == "name" or type_column == "igredients":
+                new_value = new_value.upper()
+
+        row[type_column] = new_value
+
+        new_item = row
+
+    remove_item(index)
+    input_archive(new_item)
+
+    #end method
 
 def return_nameItem(index):
     """ Método printa na tela o nome e valor do item da posição index que foi passado como 
@@ -163,3 +207,5 @@ def return_nameItem(index):
     for i in line_cardapy:
         print("NOME:", i["name"])
         print("VALOR:", i["price"])
+
+alter_register(8)
