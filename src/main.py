@@ -47,12 +47,14 @@ while option != 0:
         system("clear")
         btree = int(input("1-> ÁRVORE NUMÉRICA\n2-> ÁRVORE ALFABÉTICA\n\nInforme uma opção: "))
         if btree == 1:
+            system("clear")
             key = input("Informe a chave que será alterada: ")
             key = float(key)
             index = tree_keyPrice.search_bt(tree_keyPrice.root, key)
             alter_register(index)
         
         elif btree == 2:
+            system("clear")
             key = input("Informe a chave que será alterada: ")
             key = key.upper()
             index = tree_keyName.search_bt(tree_keyPrice.root, key)
