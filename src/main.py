@@ -19,11 +19,6 @@ while option != 0:
         system("clear")
         itemRegister()
 
-        #recriando as árvores
-        tree_keyName = btree_creator("name")
-        tree_keyPrice = btree_creator("price")
-        tree_carne, tree_peixe, tree_vegano = btree_typeProtein()
-
     #remoção do item
     elif option is 2:
         system("clear")
@@ -32,12 +27,10 @@ while option != 0:
         if btree is 1:
             system("clear")
             key = input("Informe a chave que será removida: ")
-            key = key.upper()
+            key = float(key)
             index = tree_keyPrice.search_bt(tree_keyPrice.root, key)
 
             remove_item(index)
-            #recriando a árvore
-            tree_keyPrice = btree_creator("price")
 
         elif btree is 2:
             system("clear")
@@ -46,14 +39,26 @@ while option != 0:
             index = tree_keyName.search_bt(tree_keyName.root, key)
 
             remove_item(index)
-            #recriando a árvore
-            tree_keyName = btree_creator("name")
+            
         system("pause")
 
     #alterar registro
     elif option is 3:
-        alter_register()
-        print("chevrolet")
+        system("clear")
+        btree = int(input("1-> ÁRVORE NUMÉRICA\n2-> ÁRVORE ALFABÉTICA\n\nInforme uma opção: "))
+        if btree is 1:
+            key = input("Informe a chave que será alterada: ")
+            key = float(key)
+            index = tree_keyPrice.search_bt(tree_keyPrice.root, key)
+            alter_register(index)
+        
+        elif btree is 2:
+            key = input("Informe a chave que será alterada: ")
+            key = key.upper()
+            index = tree_keyName.search_bt(tree_keyPrice.root, key)
+            alter_register(index)
+
+        system("pause")
 
     #operações da btree
     elif option is 4:
@@ -107,16 +112,13 @@ while option != 0:
                 item_name = input("Informe o nome da chave: ")
                 item_name = item_name.upper()
                 index = tree_keyName.search_bt(tree_keyName.root, item_name)
-
-                #exibindo as informações
-                system("clear")
                 return_dataIndex(index)
 
                 system("pause")
                 
             elif option_btKey is 2:
                 tree_keyName.seq_press(tree_keyName.root)
-                
+
                 system("pause")
 
         #chave tipo de proteína
@@ -130,8 +132,7 @@ while option != 0:
                 system("clear")
                 item_name = input("Informe o nome da chave: ")
                 item_name = item_name.upper()
-                
-                system("clear")
+
                 if option_btProtein is 1:
                     index = tree_carne.search_bt(tree_carne.root, item_name)
                     return_dataIndex(index)
@@ -157,3 +158,8 @@ while option != 0:
                     tree_vegano.seq_press(tree_vegano.root)
 
                 system("pause")
+
+    tree_keyName = btree_creator("name")
+    tree_keyPrice = btree_creator("price")
+    tree_carne, tree_peixe, tree_vegano = btree_typeProtein()
+    #end while
