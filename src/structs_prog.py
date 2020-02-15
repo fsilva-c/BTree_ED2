@@ -35,3 +35,26 @@ def struct_menu():
     }
 
     return menu_prog
+
+def struct_item_enum():
+    itemType_enum ={
+        "typeItem_drink" : {
+            1 : "name",
+            2 : "price",
+            3 : "igredients",
+            4 : "kcal",
+            5 : "type_drink",
+            6 : "flavor_drink"
+        },
+
+        "typeItem_protein" : {
+            1 : "name",
+            2 : "price",
+            3 : "igredients",
+            4 : "kcal",
+            5 : "type_protein",
+            6 : "protein_portion"
+        }
+    }
+
+    return itemType_enum
