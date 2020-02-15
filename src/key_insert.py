@@ -207,5 +207,3 @@ def return_nameItem(index):
     for i in line_cardapy:
         print("NOME:", i["name"])
         print("VALOR:", i["price"])
-
-alter_register(8)
