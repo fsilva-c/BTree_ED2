@@ -15,15 +15,26 @@ while option != 0:
     system("clear")
     option = int(input("1-> INSERIR NOVO ITEM\n2-> ELIMINAR ITEM\n3-> MODIFICAR ITEM\n4-> OPERAÇÕES DA BTREE\n0-> Sair\n\nInforme uma opcao: "))
         
+    #1) inserir registro
     if option == 1:
         system("clear")
-        itemRegister()
+        #validando input
+        name_item = input("Informe o nome do produto: ")
+        name_item = name_item.upper()
+        check_name = tree_keyName.search_bt(tree_keyName.root, name_item)
 
-    #remoção do item
+        price_item = input("Informe o preco do produto: ")
+        check_price = tree_keyPrice.search_bt(tree_keyPrice.root, price_item)
+
+        itemRegister(name_item, price_item, check_name, check_price)
+        system("pause")
+
+    #2) remoção do item
     elif option == 2:
         system("clear")
         btree = int(input("1-> ÁRVORE NUMÉRICA\n2-> ÁRVORE ALFABÉTICA\n\nInforme uma opção: "))
         
+        #arvore numérica
         if btree == 1:
             system("clear")
             key = input("Informe a chave que será removida: ")
@@ -32,6 +43,7 @@ while option != 0:
 
             remove_item(index)
 
+        #arvore alfabética
         elif btree == 2:
             system("clear")
             key = input("Informe a chave que será removida: ")
@@ -42,10 +54,12 @@ while option != 0:
             
         system("pause")
 
-    #alterar registro
+    #3) alterar registro
     elif option == 3:
         system("clear")
         btree = int(input("1-> ÁRVORE NUMÉRICA\n2-> ÁRVORE ALFABÉTICA\n\nInforme uma opção: "))
+
+        #arvore numérica
         if btree == 1:
             system("clear")
             key = input("Informe a chave que será alterada: ")
@@ -53,6 +67,7 @@ while option != 0:
             index = tree_keyPrice.search_bt(tree_keyPrice.root, key)
             alter_register(index)
         
+        #arvore alfabética
         elif btree == 2:
             system("clear")
             key = input("Informe a chave que será alterada: ")
@@ -62,20 +77,20 @@ while option != 0:
 
         system("pause")
 
-    #operações da btree
+    #4) operações da btree
     elif option == 4:
         system("clear")
         option_bt = int(input("1-> ÁRVORE NUMÉRICA\n2-> ÁRVORE ALFABÉTICA\n3-> ÁRVORES TIPO DE PROTEÍNA\n\nInforme uma opção: "))
 
-        #chave numérica
+        #4.1) chave numérica
         if option_bt == 1:
             system("clear")
-            option_btKey = int(input("1-> DETRALHAR REGISTRO\n2-> BUSCA POR INTERVALO\n3-> BUSCA MAIOR OU MENOR\n4-> IMPRESSÃO ORDENADA\n\nInforme uma opcao: "))
+            option_btKey = int(input("1-> DETALHAR REGISTRO\n2-> BUSCA POR INTERVALO\n3-> BUSCA MAIOR OU MENOR\n4-> IMPRESSÃO ORDENADA\n\nInforme uma opcao: "))
             
             #detalhar registro
             if option_btKey == 1:
                 system("clear")
-                item_name = input("Informe o valor da chave: ")
+                item_name = float(input("Informe o valor da chave: "))
                 index = tree_keyPrice.search_bt(tree_keyPrice.root, item_name)
                 return_dataIndex(index)
 
@@ -83,15 +98,15 @@ while option != 0:
 
             #busca por intervalo
             elif option_btKey == 2:
-                value_0 = input("Informe o valor inicial: ")
-                value_1 = input("Informe o valor final: ")
+                value_0 = float(input("Informe o valor inicial: "))
+                value_1 = float(input("Informe o valor final: "))
                 tree_keyPrice.seach_by_interval(tree_keyPrice.root, value_0, value_1)
 
                 system("pause")
             
             #maior ou menor
             elif option_btKey == 3:
-                value = input("Informe o valor referencia: ")
+                value = float(input("Informe o valor referencia: "))
                 ty = input("Maior ou menor: ")
                 tree_keyPrice.seach_by_value(tree_keyPrice.root, value, ty)
 
@@ -104,11 +119,12 @@ while option != 0:
 
                 system("pause")
 
-        #chave alfabética
+        #4.2) chave alfabética
         elif option_bt == 2:
             system("clear")
             option_btKey = int(input("1-> DETALHAR REGISTRO\n2-> IMPRESSÃO ORDENADA\n\nInforme uma opcao: "))
             
+            #detalhar registro
             if option_btKey == 1:
                 system("clear")
                 item_name = input("Informe o nome da chave: ")
@@ -117,19 +133,21 @@ while option != 0:
                 return_dataIndex(index)
 
                 system("pause")
-                
+            
+            #impressao ordenada
             elif option_btKey == 2:
                 tree_keyName.seq_press(tree_keyName.root)
 
                 system("pause")
 
-        #chave tipo de proteína
+        #4.3) chave tipo de proteína
         elif option_bt == 3:
             system("clear")
             option_btKey = int(input("1-> DETALHAR REGISTRO\n2-> IMPRESSÃO ORDENADA\n\nInforme uma opcao: "))
             system("clear")
             option_btProtein = int(input("1-> TIPO CARNE\n2-> TIPO PEIXE\n3-> TIPO VEGANO\n\nInforme uma opcao: "))
 
+            #detalhar registro
             if option_btKey == 1:
                 system("clear")
                 item_name = input("Informe o nome da chave: ")
@@ -148,7 +166,8 @@ while option != 0:
                     return_dataIndex(index)
 
                 system("pause")
-                
+
+            #impressao ordenada
             elif option_btKey == 2:
                 if option_btProtein == 1:
                     tree_carne.seq_press(tree_carne.root)

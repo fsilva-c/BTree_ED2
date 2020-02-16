@@ -14,19 +14,18 @@ def system(value):
         #print(chr(27) + "[2j]")
         #print("\x1bc")
 
-def itemRegister():
+def itemRegister(name_item, price_item, check_name, check_price):
+    #verificando se já existe registro com essa chave
+    if check_name != None or check_price != None:
+        print("JÁ EXISTE UM ITEM CADASTRADO COM ESTE VALOR OU NOME!")
+        return
+
     item = struct_item()
     menu_prog = struct_menu()
     
-    item["name"] = input("Informe o nome do produto: ")
-    #caixa alta
-    item["name"] = item["name"].upper()
-    if key_validator(item["name"], "name") == False:
-        return
+    item["name"] = name_item
 
-    item["price"] = input("Informe o preco do produto: ")
-    if key_validator(item["price"], "price") == False:
-        return
+    item["price"] = price_item
 
     item["igredients"] = input("Informe os igredientes: ")
     item["igredients"] = item["igredients"].upper()
@@ -52,29 +51,6 @@ def itemRegister():
             break
 
     input_archive(item)
-
-def key_validator(value, INDEX):
-    """
-        função percorre o arquivo sequencial cardapy.txt e verifica pelo indice se há algum dado
-        igual ao valor passado na insercao de um novo item.
-    """
-
-    #casting pois o arquivo é lido em forma de string
-    value = str(value)
-
-    archive = open("cardapy.csv")
-    items = csv.DictReader(archive)
-
-    #verifica se o valor passado pela funcao é igual a algum dado do arquivo
-    for lines in items:
-        if lines[INDEX] == value:
-            print("JÁ EXISTE UM ITEM CADASTRADO COM VALOR OU NOME " + value + "!")
-            system("pause")
-
-            return False
-
-    archive.close()
-
 
 def input_archive(struct):
     """
@@ -126,14 +102,23 @@ def return_dataIndex(index):
             print("Porção por prato: " + i["protein_portion"])
 
 def remove_item(index):
+    """[Método recebe um índice correspondente ao arquivo sequencial e remove uma linha inteira deste 
+    arquivo, ou seja, um item completo]
+    
+    Arguments:
+        index {[inteiro]} -- [corresponde ao índice do arquivo sequencial]
+
+    """    
     if index is None:
         print("O ELEMENTO NÃO ESTÁ CADASTRADO!")
         return False
 
+    #obtendo a linha do arquivo da posição index
     item_remove = open("cardapy.csv").readlines()[index]
 
     archive_temp = open("cardapy_temp.csv", "w")
 
+    #recriando o arquivo cardapy.csv sem o item a ser removido
     with open('cardapy.csv', 'r') as f:
         lines = f.readlines()
         for line in lines:
@@ -141,12 +126,20 @@ def remove_item(index):
             if line == item_remove:
                 line = ""
             archive_temp.write(line)
-            
+
+    #close, remove o arquivo antigo e renomeia o arquivo temporario para cardapy.csv
     archive_temp.close()
     os.remove("cardapy.csv")
     os.rename("cardapy_temp.csv", "cardapy.csv")        
 
 def alter_register(index):
+    """[Método recebe um índice e altera os campos correspondente ao seu tipo de item, podendo ser bebida 
+    ou comida.]
+    
+    Arguments:
+        index {[inteiro]} -- [corresponde ao índice do arquivo sequencial]
+    
+    """    
     #validação do índice
     if index is None:
         print("O ELEMENTO NÃO ESTÁ CADASTRADO!")
