@@ -6,6 +6,7 @@ Representar as operações de consulta ao cardápio de um restaurante utilizando
 
 ## cardapy.csv
 Arquivo sequencial em que armazenamos os dados referentes aos itens cadastrados no sistema.
+
 O aquivo segue a seguinte estrutura:
 ```
  item = {
