@@ -91,7 +91,7 @@ def return_dataIndex(index):
     
     for i in line_cardapy:
         print("Nome: " + i["name"])
-        print("Preço: " + i["price"])
+        print("Preço: R$ " + i["price"])
         print("Ingredientes: " + i["igredients"])
         print("KCal: " + i["kcal"])
         
