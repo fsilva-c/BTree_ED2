@@ -23,7 +23,8 @@ while option != 0:
         name_item = name_item.upper()
         check_name = tree_keyName.search_bt(tree_keyName.root, name_item)
 
-        price_item = input("Informe o preco do produto: ")
+        price_item = float(input("Informe o preco do produto: "))
+
         check_price = tree_keyPrice.search_bt(tree_keyPrice.root, price_item)
 
         itemRegister(name_item, price_item, check_name, check_price)
