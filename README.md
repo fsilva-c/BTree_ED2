@@ -21,3 +21,9 @@ O aquivo segue a seguinte estrutura:
         "protein_portion" : "NaN"
     }
 ```
+###### Exemplo:
+```csv
+name,price,igredients,kcal,type_item,type_drink,flavor_drink,type_protein,protein_portion
+FRANGO ASSADO,25.99,"FRANGO, MOLHO DE TOMATE",600,2,NaN,NaN,carne,5
+```
+
