@@ -8,7 +8,7 @@ Representar as operações de consulta ao cardápio de um restaurante utilizando
 Arquivo sequencial em que armazenamos os dados referentes aos itens cadastrados no sistema.
 
 O aquivo segue a seguinte estrutura:
-```
+```python
  item = {
         "name" : "NaN",
         "price" : "NaN",
