@@ -1,4 +1,5 @@
 from structs_prog import *
+from color import *
 
 import csv
 import os
@@ -17,7 +18,7 @@ def system(value):
 def itemRegister(name_item, price_item, check_name, check_price):
     #verificando se já existe registro com essa chave
     if check_name != None or check_price != None:
-        print("JÁ EXISTE UM ITEM CADASTRADO COM ESTE VALOR OU NOME!")
+        print(color.RED + "JÁ EXISTE UM ITEM CADASTRADO COM ESTE VALOR OU NOME!" + color.END)
         return
 
     item = struct_item()
@@ -27,27 +28,27 @@ def itemRegister(name_item, price_item, check_name, check_price):
 
     item["price"] = price_item
 
-    item["igredients"] = input("Informe os igredientes: ")
+    item["igredients"] = input(color.DARKCYAN + "Informe os igredientes: " + color.END)
     item["igredients"] = item["igredients"].upper()
     
-    item["kcal"]  = input("Informe a quantidade de kcal contida no item: ")
+    item["kcal"]  = input(color.DARKCYAN + "Informe a quantidade de kcal contida no item: " + color.END)
     
     while(True):
-        item["type_item"] = int(input("1-> BEBIDA\n2-> COMIDA\n\nInforme o tipo do item: "))
+        item["type_item"] = int(input(color.BOLD + "1-> BEBIDA\n2-> COMIDA\n\n" + color.DARKCYAN + "Informe o tipo do item: " + color.END))
         item["type_item"] = menu_prog["type_item"][item["type_item"]]
 
         if item["type_item"] == "bebida":
-            item["type_drink"] = int(input("1-> SUCO\n2-> REFRIGERANTE\n3-> ÁGUA\n\nInforme o tipo da bebida: "))
+            item["type_drink"] = int(input(color.BOLD + "1-> SUCO\n2-> REFRIGERANTE\n3-> ÁGUA\n\n" + color.DARKCYAN + "Informe o tipo da bebida: " + color.END))
             item["type_drink"] = menu_prog["type_drink"][item["type_drink"]]
 
-            item["flavor_drink"] = input("Informe o sabor da bebida: ")
+            item["flavor_drink"] = input(color.DARKCYAN + "Informe o sabor da bebida: " + color.END)
             break
 
         elif item["type_item"] == "comida":
-            item["type_protein"] = int(input("1-> CARNE\n2-> PEIXE\n3-> VEGANO\n\nInforme o tipo da proteína: "))
+            item["type_protein"] = int(input(color.BOLD + "1-> CARNE\n2-> PEIXE\n3-> VEGANO\n\n" + color.DARKCYAN + "Informe o tipo da proteína: " + color.END))
             item["type_protein"] = menu_prog["type_protein"][item["type_protein"]]
 
-            item["protein_portion"] = input("Informe a quantidade de porções que o prato rende: ")
+            item["protein_portion"] = input(color.DARKCYAN + "Informe a quantidade de porções que o prato rende: " + color.END)
             break
 
     input_archive(item)
@@ -84,7 +85,7 @@ def return_lineIndex(index):
 def return_dataIndex(index):
     """ Método recebe uma chave e retorna os dados relacionados ao item. """
     if index is None:
-        print("O ELEMENTO NÃO ESTÁ CADASTRADO!")
+        print(color.RED + "O ELEMENTO NÃO ESTÁ CADASTRADO!" + color.END)
         return False
 
     line_cardapy = return_lineIndex(index)
@@ -110,7 +111,7 @@ def remove_item(index):
 
     """    
     if index is None:
-        print("O ELEMENTO NÃO ESTÁ CADASTRADO!")
+        print(color.RED + "O ELEMENTO NÃO ESTÁ CADASTRADO!" + color.END)
         return False
 
     #obtendo a linha do arquivo da posição index
@@ -142,7 +143,7 @@ def alter_register(index):
     """    
     #validação do índice
     if index is None:
-        print("O ELEMENTO NÃO ESTÁ CADASTRADO!")
+        print(color.RED + "O ELEMENTO NÃO ESTÁ CADASTRADO!" + color.END)
         return False
     
     #print do item
@@ -156,29 +157,38 @@ def alter_register(index):
     
     for row in item:
         if row["type_item"] == "bebida":
-            type_column = int(input("1-> NOME\n2-> PREÇO\n3-> IGREDIENTES\n4-> KCAL\n5-> TIPO DA BEBIDA\n6-> SABOR DA BEBIDA\n\nInforme o campo do produto que deseja alterar: "))
+            type_column = int(input(color.BOLD + "1-> NOME\n2-> PREÇO\n3-> IGREDIENTES\n4-> KCAL\n5-> TIPO DA BEBIDA\n6-> SABOR DA BEBIDA\n\n" + color.DARKCYAN + "Informe o campo do produto que deseja alterar: " + color.END))
             type_column = itemType_enum["typeItem_drink"][type_column]
 
             system("clear")
             if type_column == "type_drink":
-                new_value = int(input("1-> SUCO\n2-> REFRIGERANTE\n3-> ÁGUA\n\nInforme o tipo da bebida: "))
+                new_value = int(input(color.BOLD + "1-> SUCO\n2-> REFRIGERANTE\n3-> ÁGUA\n\n" + color.DARKCYAN + "Informe o tipo da bebida: " + color.END))
                 new_value = itemType_enum_TypeDrinkOrProtein["type_drink"][new_value]
             
         else:
-            type_column = int(input("1-> NOME\n2-> PREÇO\n3-> IGREDIENTES\n4-> KCAL\n5-> TIPO DA PROTEÍNA\n6-> PORÇÕES\n\nInforme o campo do produto que deseja alterar: "))
+            type_column = int(input(color.BOLD + "1-> NOME\n2-> PREÇO\n3-> IGREDIENTES\n4-> KCAL\n5-> TIPO DA PROTEÍNA\n6-> PORÇÕES\n\n" + color.DARKCYAN + "Informe o campo do produto que deseja alterar: " + color.END))
             type_column = itemType_enum["typeItem_protein"][type_column]
 
             system("clear")
             if type_column == "type_protein":
-                new_value = int(input("1-> CARNE\n2-> PEIXE\n3-> VEGANO\n\nInforme o tipo da proteína: "))
+                new_value = int(input(color.BOLD + "1-> CARNE\n2-> PEIXE\n3-> VEGANO\n\n" + color.DARKCYAN + "Informe o tipo da proteína: " + color.END))
                 new_value = itemType_enum_TypeDrinkOrProtein["type_protein"][new_value]
 
         system("clear")
-        if type_column == "name" or type_column == "price" or type_column == "igredients" or type_column == "kcal" or type_column == "flavor_drink":
-            new_value = input("Informe o novo valor para o campo: ")
+        #if type_column != "type_drink" or type_column != "type_protein":
+        if type_column == "name" or type_column == "price" or type_column == "igredients" or type_column == "kcal" or type_column == "flavor_drink" or type_column == "protein_portion":
+            new_value = input(color.DARKCYAN + "Informe o novo valor para o campo: " + color.END)
             if type_column == "name" or type_column == "igredients":
                 new_value = new_value.upper()
 
+        #check new key
+        if type_column == "name":
+            if key_validator(new_value , "name") == False:
+                return
+        elif type_column == "price":
+            if key_validator(new_value , "price") == False:
+                return
+        
         row[type_column] = new_value
 
         new_item = row
@@ -187,6 +197,27 @@ def alter_register(index):
     input_archive(new_item)
 
     #end method
+
+def key_validator(value, INDEX):
+    """
+        função percorre o arquivo sequencial cardapy.txt e verifica pelo indice se há algum dado
+        igual ao valor passado na insercao de um novo item.
+    """
+
+    #casting pois o arquivo é lido em forma de string
+    value = str(value)
+
+    archive = open("cardapy.csv")
+    items = csv.DictReader(archive)
+
+    #verifica se o valor passado pela funcao é igual a algum dado do arquivo
+    for lines in items:
+        if lines[INDEX] == value:
+            print(color.RED + "JÁ EXISTE UM ITEM CADASTRADO COM VALOR OU NOME " + value + "!" + color.END)
+
+            return False
+
+    archive.close()
 
 def return_nameItem(index):
     """ Método printa na tela o nome e valor do item da posição index que foi passado como 
